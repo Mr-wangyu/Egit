@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+<!-- 1创建目标类 -->
+<bean id="userService" class="com.rock.factory_bean.UserServiceImpl"></bean>
+ <!-- 2创建切面类 -->
+ <bean id="myAspect" class="com.rock.factory_bean.MyAspect"></bean>
+ <!-- 3创建代理类
+ 	使用工厂bean FactoryBean , 底层调用getObject() 返回特殊bean
+ 	proxyFactoryBean 用于创建代理工厂bean,生成特殊代理对象
+ 		interfaces : 确定接口们
+ 			通过<array>可以设置多个值
+ 			只有一个值时用value=""
+ 		target ：确定目标类
+ 		interceptorNames : 通知 切面类的名称，类型String[]，如果设置一个值 用 value=“”
+ 
+ 
+ 
+  -->
+ 
+ 
+ <bean id = "proxyService" class="org.springframework.aop.framework.ProxyFactoryBean">
+ 	<property name="interfaces" value="com.rock.factory_bean.UserService"></property>
+ 	<property name="target" ref="userService"></property>
+ 	<property name="interceptorNames" value="myAspect"></property>
+ </bean>
+ 
+</beans>
+
+
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
+<!-- 1创建目标类 -->
+<bean id="userService" class="com.rock.spring_aop.UserServiceImpl"></bean>
+ <!-- 2创建切面类 -->
+ <bean id="myAspect" class="com.rock.spring_aop.MyAspect"></bean>
+ <!--3创建aop-->
+ <aop:config proxy-target-class="true">
+ 	<aop:pointcut expression="execution(* com.rock.spring_aop.*.*(..))" id="myPointcut"/>
+ 	<aop:advisor advice-ref="myAspect" pointcut-ref="myPointcut"/>
+ 
+ 
+ 
+ </aop:config>
+</beans>
+
+
+
